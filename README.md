@@ -2,12 +2,16 @@
 
 This project explores sales performance for a fictional sports retail store using advanced SQL techniques to uncover business insights.
 
+
 🔍 Key Objectives
+
 Analyze total revenue, profit, and number of orders by sport.
 Evaluate customer ratings and their impact on performance.
 Track monthly profit trends.
 Assess state-level performance based on revenue and profit.
+
 🛠️ SQL Techniques Used
+
 Aggregate Functions:
 Used SUM(), COUNT(), and AVG() to calculate key metrics such as total revenue, profit, and average rating.
 ROUND() was applied to improve result readability.
@@ -20,7 +24,9 @@ CTEs (Common Table Expressions):
 Simplified complex logic, such as calculating the percentage of orders with customer ratings and average rating scores.
 JOINS:
 Combined orders and customers tables to analyze performance by state.
+
 📈 Key Insights
+
 Certain sports generated significantly higher profit margins than others.
 States showed varied profitability, helping identify top-performing regions.
 Monthly profit analysis revealed fluctuations, guiding seasonality or strategy shifts.
