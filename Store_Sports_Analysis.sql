@@ -3,17 +3,9 @@ use Store_Sports_Analytics;
 
 select * from orders;
 select * from customers;
-----------------------------------------------------------------------------------------------------------------------------------------------------------
-# KPI's for total revenue, profit, number of orders, profit margin
 
-Select sum(revenue) as total_revenue, 
-sum(profit) as total_profit,
-count(*) as total_orders,
-(sum(profit)/sum(revenue))*100 as profit_margin
-from orders
-order by total_revenue desc;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# KPI's for total revenue, profit, number of orders, profit margin
+# 1 KPI's for total revenue, profit, number of orders, profit margin.
 
 Select sport, 
 round( sum(revenue),2) as total_revenue, 
@@ -25,7 +17,7 @@ group by sport
 order by total_profit desc;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# 3 Number of customer rating, the perecetage of ratings the company got from all the orders, and the average rating
+# 2 Number of customer rating, the perecetage of ratings the company got from all the orders, and the average rating
 
 set sql_safe_updates=0;
 
@@ -42,7 +34,7 @@ round((total_ratings_available/2847)*100,2) as percentage_gave_rate  , # 2847 is
  average_rating
 from cte_rating_percentage;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
- # Number of people for each rating and its revenue, profit, profit margin
+ # 3 Number of people for each rating and its revenue, profit, profit margin
 
 select rating, 
 	round(sum(revenue),2) as revenue,
@@ -54,7 +46,7 @@ group by rating
 order by rating desc;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# State revenue, profit, profit margin
+# 4 State revenue, profit, profit margin
 
 select round(sum(o.revenue),2) as revenue , 
 row_number() over(order by sum(o.revenue) desc) rank_revenue,
@@ -70,7 +62,7 @@ group by c.State
 order by profit desc;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-#First we converted date from string function to date to calculate monthly profit.
+# 5 First we converted date from string function to date to calculate monthly profit.
 
 select str_to_date(date,"%m/%d/%y") as converted_table
 from orders;
