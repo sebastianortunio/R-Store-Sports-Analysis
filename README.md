@@ -1,13 +1,27 @@
-# Store-Sports-Analysis
+🏪 Store Sports Analysis (SQL Project)
 
-In this project, several SQL functions were used to process and analyze the data. Aggregate functions like SUM() and COUNT() were employed to calculate the total revenue, profit, and number of orders. The AVG() function was used to calculate the average rating, while ROUND() was applied to make numerical results, such as revenue, profit, and profit margins, more readable.
+This project explores sales performance for a fictional sports retail store using advanced SQL techniques to uncover business insights.
 
-Window functions, like ROW_NUMBER(), were used to rank states based on their revenue or profit, and LAG() helped calculate the difference between the current month’s profit and the previous month’s profit, aiding in the analysis of monthly profit trends.
-
-String-to-date functions like STR_TO_DATE() were used to convert date strings into proper date types for easier manipulation and comparison. This is crucial for calculating monthly profit changes and tracking trends over time.
-
-Conditional expressions, such as IFNULL(), are commonly used to replace null values with a default, though it wasn't explicitly mentioned in the queries. Subqueries and Common Table Expressions (CTEs) were used to simplify complex queries and break down the logic. For instance, CTEs calculated the average rating and the percentage of customers who provided ratings.
-
-Finally, JOIN statements were used to combine data from multiple tables. This was especially useful when linking the orders table with the customers table to analyze state-based revenue and profit.
-
-Overall, these functions enabled in-depth analysis and manipulation of the data, allowing the store’s performance to be tracked across various dimensions, including sports, states, and time periods.
+🔍 Key Objectives
+Analyze total revenue, profit, and number of orders by sport.
+Evaluate customer ratings and their impact on performance.
+Track monthly profit trends.
+Assess state-level performance based on revenue and profit.
+🛠️ SQL Techniques Used
+Aggregate Functions:
+Used SUM(), COUNT(), and AVG() to calculate key metrics such as total revenue, profit, and average rating.
+ROUND() was applied to improve result readability.
+Window Functions:
+ROW_NUMBER() ranked states by revenue, profit, and profit margin.
+LAG() calculated month-over-month changes in profit to identify trends.
+Date Conversion:
+Used STR_TO_DATE() to convert string-formatted dates into SQL DATE types for accurate time-series analysis.
+CTEs (Common Table Expressions):
+Simplified complex logic, such as calculating the percentage of orders with customer ratings and average rating scores.
+JOINS:
+Combined orders and customers tables to analyze performance by state.
+📈 Key Insights
+Certain sports generated significantly higher profit margins than others.
+States showed varied profitability, helping identify top-performing regions.
+Monthly profit analysis revealed fluctuations, guiding seasonality or strategy shifts.
+Only a portion of customers left ratings — yet these ratings correlated with key financial outcomes.
