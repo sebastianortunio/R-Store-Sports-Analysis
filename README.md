@@ -45,7 +45,7 @@ The project analyzes two tables:
 ![image](https://github.com/user-attachments/assets/f382f9a7-9dd8-47bb-94b9-ffca643bf861)
 
 
-➡️ All sports are profitable, with Soccer and Football performing the best.
+➡️ All sports are profitable, with Soccer, Baseball and Football performing the best.
 
 ---
 
