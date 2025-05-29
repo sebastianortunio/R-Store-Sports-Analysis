@@ -37,12 +37,8 @@ The project analyzes two tables:
 
 ### 🧾 Overall Business Metrics
 
-| Metric             | Value           |
-|--------------------|-----------------|
-| Total Revenue      | $459,418.37     |
-| Total Profit       | $284,821.86     |
-| Number of Orders   | 2,845           |
-| Profit Margin      | **62%**         |
+![image](https://github.com/user-attachments/assets/1f409c17-55f6-4817-91e5-0430fd5acb79)
+
 
 ### 🏅 Profitability by Sport
 
