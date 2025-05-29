@@ -6,7 +6,7 @@ This project uses SQL to clean, transform, and analyze sales and customer data f
 
 ---
 
-## 📌 Project Objectives
+## * Project Objectives
 
 - Convert and clean date and rating fields
 - Calculate key performance indicators (KPIs)
@@ -16,7 +16,7 @@ This project uses SQL to clean, transform, and analyze sales and customer data f
 
 ---
 
-## 🗃️ Dataset Overview
+## * Dataset Overview
 
 The project analyzes two tables:
 
@@ -25,7 +25,7 @@ The project analyzes two tables:
 
 ---
 
-## 🧹 Data Cleaning Steps
+## * Data Cleaning Steps
 
 - Converted `date` (text) to `Date_New` (DATE format)
 - Replaced blank strings in `rating` with `NULL`
@@ -33,14 +33,14 @@ The project analyzes two tables:
 
 ---
 
-## 📊 KPI Highlights
+## * KPI Highlights
 
-### 🧾 Overall Business Metrics
+### 1. Overall Business Metrics
 
 ![image](https://github.com/user-attachments/assets/1f409c17-55f6-4817-91e5-0430fd5acb79)
 
 
-### 🏅 Profitability by Sport
+### 2. Profitability by Sport
 
 ![image](https://github.com/user-attachments/assets/f382f9a7-9dd8-47bb-94b9-ffca643bf861)
 
@@ -49,7 +49,7 @@ The project analyzes two tables:
 
 ---
 
-## 🌎 Geographic Insights
+## 3. Geographic Insights
 
 - **Top Revenue States:** California, Texas, Florida
 - **Top Margin States:** Utah, Massachusetts, New Mexico
@@ -58,7 +58,7 @@ The project analyzes two tables:
 
 ---
 
-## ⭐ Customer Ratings
+## 4. Customer Ratings
 
 - Total Ratings: 1,193
 - % of Orders Rated: 41.91%
@@ -73,7 +73,7 @@ The project analyzes two tables:
 
 ---
 
-## 📅 Monthly Profit Trends
+## 5. Monthly Profit Trends
 
 ![image](https://github.com/user-attachments/assets/3d9f2134-c49c-4879-88ff-375bd96163e1)
 
@@ -85,7 +85,7 @@ The project analyzes two tables:
 
 ---
 
-## 📈 Business Conclusions
+## 6. Business Conclusions
 
 - The company is **highly profitable**, with consistent positive profit margins.
 - Focus areas:
@@ -95,16 +95,6 @@ The project analyzes two tables:
 
 ---
 
-## 💡 Final Thoughts
-
-This project demonstrates practical SQL skills in:
-
-- Data cleaning and transformation
-- KPI calculation
-- Aggregation and trend analysis
-- Business interpretation of data
-
----
 
 Thanks a lot for checking out my project!  
 **Connect with me on [LinkedIn](https://www.linkedin.com/in/sebastian-ortuno/) or check out my other projects!**
