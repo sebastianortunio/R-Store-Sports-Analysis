@@ -66,13 +66,8 @@ The project analyzes two tables:
 
 **Rating Distribution vs Profitability:**
 
-| Rating | Orders | Revenue   | Profit    | Margin   |
-|--------|--------|-----------|-----------|----------|
-| 5      | 297    | $40,565.93| $23,957.63| 59.06%   |
-| 4      | 216    | $29,468.41| $17,303.72| 58.72%   |
-| 3      | 240    | $38,663.38| $24,209.14| 62.62%   |
-| 2      | 225    | $31,838.67| $19,250.57| 60.46%   |
-| 1      | 215    | $28,596.75| $16,339.88| 57.14%   |
+![image](https://github.com/user-attachments/assets/1324c3fe-b7a8-4641-90c4-3817e53987c3)
+
 
 ➡️ High ratings do not guarantee higher margins. Rating 3 has the highest profit margin.
 
