@@ -69,7 +69,7 @@ The project analyzes two tables:
 ![image](https://github.com/user-attachments/assets/1324c3fe-b7a8-4641-90c4-3817e53987c3)
 
 
-➡️ High ratings do not guarantee higher margins. Rating 3 has the highest profit margin.
+- High ratings do not guarantee higher margins. Rating 3 has the highest profit margin.
 
 ---
 
