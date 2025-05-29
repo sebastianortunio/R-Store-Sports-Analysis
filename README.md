@@ -75,10 +75,13 @@ The project analyzes two tables:
 
 ## 📅 Monthly Profit Trends
 
-- All months are profitable.
-- March (+$7,091.26) and April (+$22,795.24) show the largest gains.
-- July saw the biggest drop: −$11,251.86.
-- December rebounded with +$6,807.34.
+![image](https://github.com/user-attachments/assets/3d9f2134-c49c-4879-88ff-375bd96163e1)
+
+
+-- Every month shows a positive profit — no losses were recorded.
+-- March and April show the highest profit increases compared to the previous month: +7091.26 and +22795.24 respectively.
+-- July had the largest drop in profit: -11251.86.
+-- December shows recovery with a +6807.34 increase after prior declines.
 
 ---
 
