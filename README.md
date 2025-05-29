@@ -96,8 +96,4 @@ The project analyzes two tables:
 ---
 
 
-Thanks a lot for checking out my project!  
-**Connect with me on [LinkedIn](https://www.linkedin.com/in/sebastian-ortuno/) or check out my other projects!**
-
-
 
