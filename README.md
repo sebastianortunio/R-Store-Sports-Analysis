@@ -42,13 +42,8 @@ The project analyzes two tables:
 
 ### 🏅 Profitability by Sport
 
-| Sport      | Revenue     | Profit     | Orders | Profit Margin |
-|------------|-------------|------------|--------|----------------|
-| Soccer     | $90,157.93  | $56,640.64 | 561    | 62.82%         |
-| Football   | $94,768.32  | $59,328.90 | 572    | 62.60%         |
-| Baseball   | $95,363.99  | $59,698.79 | 565    | 62.60%         |
-| Basketball | $92,116.23  | $56,275.33 | 577    | 61.09%         |
-| Hockey     | $87,011.90  | $52,878.20 | 572    | 60.77%         |
+![image](https://github.com/user-attachments/assets/f382f9a7-9dd8-47bb-94b9-ffca643bf861)
+
 
 ➡️ All sports are profitable, with Soccer and Football performing the best.
 
