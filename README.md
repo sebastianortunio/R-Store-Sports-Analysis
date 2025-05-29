@@ -60,7 +60,7 @@ The project analyzes two tables:
 
 ## 4. Customer Ratings
 
-- Total Ratings: 1,193
+- Total Ratings: 1,193 from 2847 orders.
 - % of Orders Rated: 41.91%
 - Average Rating: 3.43 / 5
 
