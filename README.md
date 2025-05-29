@@ -75,7 +75,8 @@ The project analyzes two tables:
 
 ## 5. Monthly Profit Trends
 
-![image](https://github.com/user-attachments/assets/1d06b9f6-ff21-4a7b-89f2-c9a75218e99b)
+![image](https://github.com/user-attachments/assets/38b0bfc7-2134-4c02-a149-bc1b7ad7c98c)
+
 
 
 
