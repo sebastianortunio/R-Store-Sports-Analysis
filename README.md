@@ -75,7 +75,8 @@ The project analyzes two tables:
 
 ## 5. Monthly Profit Trends
 
-![image](https://github.com/user-attachments/assets/3d9f2134-c49c-4879-88ff-375bd96163e1)
+![image](https://github.com/user-attachments/assets/1d06b9f6-ff21-4a7b-89f2-c9a75218e99b)
+
 
 
 - Every month shows a positive profit — no losses were recorded.
