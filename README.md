@@ -20,8 +20,8 @@ This project uses SQL to clean, transform, and analyze sales and customer data f
 
 The project analyzes two tables:
 
-- `orders`: Contains transaction-level data including revenue, profit, and rating.
-- `customers`: Contains customer details including geographic location.
+- orders: Contains transaction-level data including revenue, profit, and rating.
+- customers: Contains customer details including geographic location.
 
 ---
 
