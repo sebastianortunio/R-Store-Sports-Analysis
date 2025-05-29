@@ -1,4 +1,4 @@
-# 🧮 Data Analysis in SQL – Sports Store Analytics
+#  Data Analysis in SQL – Sports Store Analytics
 
 **Author:** Sebastián Ortuño
 
