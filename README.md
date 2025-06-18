@@ -197,13 +197,13 @@ Investigate product categories and pricing by rating to understand these trends 
 
 ---
 
-## 6. Business Conclusions
+## 8. Business Conclusions
 
-- The company is **highly profitable**, with consistent positive profit margins.
-- Focus areas:
-  1. **Improve low-rated customer experiences**
-  2. **Invest in high-margin states and sports**
-  3. **Leverage monthly trends for better inventory planning**
+- The business shows strong profitability with an average profit margin of 62%, highlighting sports like **soccer** and **basketball** for their volume and margins.  
+- Customer ratings do not directly correlate with profitability; however, lower ratings reveal areas for improvement.  
+- Geographically, states such as **Utah** and **Massachusetts** excel in margin efficiency, while **California**, **Texas**, and **Florida** lead in total revenue and profit.  
+- Seasonality is clear, with revenue and profit peaking in spring and early summer (April to June), and declining in fall and winter, notably in November.  
+- Recommendations include focusing marketing efforts during peak months and investigating causes of lower profitability in specific states and months.
 
 ---
 
