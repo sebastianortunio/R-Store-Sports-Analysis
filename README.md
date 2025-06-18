@@ -42,7 +42,7 @@ The project analyzes two tables:
 ![image](https://github.com/user-attachments/assets/1f409c17-55f6-4817-91e5-0430fd5acb79)
 
 
-### 2. Profitability by Sport
+### 2. KPIs by sport: revenue, profit, orders, profit margin.
 
 ![image](https://github.com/user-attachments/assets/f382f9a7-9dd8-47bb-94b9-ffca643bf861)
 
@@ -51,7 +51,7 @@ The project analyzes two tables:
 
 ---
 
-## 3. Geographic Insights
+## 3. Customer ratings: number, percentage of ratings from all orders, average rating.
 
 - **Top Revenue States:** California, Texas, Florida
 - **Top Margin States:** Utah, Massachusetts, New Mexico
@@ -61,7 +61,7 @@ The project analyzes two tables:
 ---![image](https://github.com/user-attachments/assets/ff3312b0-6640-4171-93c2-49accccfe906)
 
 
-## 4. Customer Ratings
+## 4. Ratings distribution: number of orders by rating, revenue by rating, profit by rating, and profit margin by rating.
 
 - Total Ratings: 1,193 from 2847 orders.
 - % of Orders Rated: 41.91%
@@ -75,10 +75,18 @@ The project analyzes two tables:
 - High ratings do not guarantee higher margins. Rating 3 has the highest profit margin.
 
 ---
+## 5. Analyze revenue, profit, and profit margin by state.
 
-## 5. Monthly Profit Trends
 
-![image](https://github.com/user-attachments/assets/38b0bfc7-2134-4c02-a149-bc1b7ad7c98c)
+
+
+
+
+---
+## 6. Monthly Profit Trends
+
+![image](https://github.com/user-attachments/assets/048dc8c2-7448-4660-8e42-7bbfe20d9f45)
+
 
 
 
@@ -87,6 +95,13 @@ The project analyzes two tables:
 - March and April show the highest profit increases compared to the previous month: +7091.26 and +22795.24 respectively.
 - July had the largest drop in profit: -11251.86.
 - December shows recovery with a +6807.34 increase after prior declines.
+---
+## 7. Monthly Revenue trends
+![image](https://github.com/user-attachments/assets/098044af-f669-4b8a-ace9-95a84d77742e)
+
+
+
+
 
 ---
 
