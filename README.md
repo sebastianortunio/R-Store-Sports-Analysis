@@ -4,7 +4,11 @@
 
 **Author:** Sebastián Ortuño
 
-This project uses SQL to clean, transform, and analyze sales and customer data from a fictional sports store. The goal is to extract actionable business insights related to revenue, profit, customer ratings, and geographic trends.
+In this project, I use R to analyze and clean data from an online sports store. The goal is to answer key business questions and extract insights on revenue, profit, customer ratings, and geographic trends.
+
+Additionally, I created an interactive Tableau dashboard to gain a deeper understanding of the data. You can explore it here:  
+https://public.tableau.com/app/profile/sebastian.ortuno.barrero/viz/SportsSalesCustomerAnalysis/RatingsDashboard?publish=y
+
 
 ---
 
