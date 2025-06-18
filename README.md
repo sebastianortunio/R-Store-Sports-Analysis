@@ -119,6 +119,9 @@ Implement post-purchase incentives like small discounts, loyalty points, or than
 ## 4. Ratings distribution: number of orders by rating, revenue by rating, profit by rating, and profit margin by rating.
 ![image](https://github.com/user-attachments/assets/af2e03ad-3296-49e5-9297-dd97d106f714)
 
+![image](https://github.com/user-attachments/assets/58600465-d38a-418e-8a43-95c88dbcb5df)
+
+
 
 - **High number of unrated orders:**  
   Most orders (1,654) lack customer ratings, showing many customers do not provide feedback.
