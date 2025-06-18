@@ -58,7 +58,8 @@ The project analyzes two tables:
 - **Low Performers:** Maine, Rhode Island (low revenue and margin)
 - **Hidden Gems:** Delaware, New Hampshire (high margins despite low volume)
 
----
+---![image](https://github.com/user-attachments/assets/ff3312b0-6640-4171-93c2-49accccfe906)
+
 
 ## 4. Customer Ratings
 
