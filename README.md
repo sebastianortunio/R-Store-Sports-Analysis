@@ -77,7 +77,8 @@ Summary of the store’s overall performance:
 ![image](https://github.com/user-attachments/assets/099dcfc4-d5af-451d-9d2e-7a25ab9666fe)
 
 
-![image](https://github.com/user-attachments/assets/66190e83-0328-4096-b891-069b88a7c569)
+![image](https://github.com/user-attachments/assets/dd2c8bf5-3255-4307-87f9-301a28640103)
+
 
 
 
