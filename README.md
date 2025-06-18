@@ -166,14 +166,31 @@ Investigate product categories and pricing by rating to understand these trends 
 
 
 
-- Every month shows a positive profit — no losses were recorded.
-- March and April show the highest profit increases compared to the previous month: +7091.26 and +22795.24 respectively.
-- July had the largest drop in profit: -11251.86.
-- December shows recovery with a +6807.34 increase after prior declines.
+- **June** has the highest profit ($42,802), marking a mid-year sales peak.  
+- **April** ($41,131) and **May** ($38,847) also show strong spring profits.  
+- **January** ($14,014) and **February** ($11,245) have low profits, likely due to post-holiday slowdowns.  
+- **November** reports the lowest profit ($9,761), possibly due to inventory or sales issues despite the holiday season.  
+- Profit fluctuates month-to-month, with sharp increases from March to April and declines after July.  
+- **July** ($31,550) dips compared to June, suggesting a mid-summer slowdown.  
+- **September** ($17,992) and **October** ($13,895) are relatively low, reflecting seasonal variation or operational challenges.  
+- **December** ($16,568) rebounds after November but remains below spring/summer levels.  
+
+**Overall**, there is clear seasonality with peaks in late spring/early summer and dips in late fall/early year.
 ---
 ## 7. Monthly Revenue trends
 ![image](https://github.com/user-attachments/assets/098044af-f669-4b8a-ace9-95a84d77742e)
 
+
+- **June** had the highest revenue ($56,407), marking peak business in early summer.  
+- **April** ($55,438) and **May** ($55,082) showed strong spring revenue.  
+- **July** ($50,390) and **August** ($45,469) maintained solid summer performance.  
+- **November** recorded the lowest revenue ($17,088), unusually low despite events like Black Friday.  
+- **December** revenue ($23,870) improved from November but stayed below yearly average.  
+- January to March had modest revenues ($27K–$35K), indicating a slow start.  
+- Sharp increase from March to April suggests seasonal growth or successful campaigns.  
+- Revenue declined gradually from September ($33,367) to October ($27,995), showing post-summer slowdown.  
+
+**Overall**, the data reveals clear seasonality with strong spring and early summer performance.
 
 
 
