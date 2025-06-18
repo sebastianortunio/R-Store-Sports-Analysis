@@ -1,4 +1,6 @@
 #  Data Analysis in R – Sports Store Analytics
+![image](https://github.com/user-attachments/assets/e0cc29cf-cd91-4034-893a-d283acfe1f79)
+
 
 **Author:** Sebastián Ortuño
 
