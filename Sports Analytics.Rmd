@@ -10,18 +10,35 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # **Sports Store project**
 ### **Author: Sebastian Ortuno**
-### **Tools used: RStudio.**
+### **Tools used: RStudio, Tableau.**
 
 ------------------------------------------------------------------------------------------------------
 
 ## **Project Overview:**
 
 
-- In this project, I use SQL to analyze and clean data from a fictional sports store. The goal is to answer key business questions and extract insights on revenue, profit,
-customer ratings, and geographic trends.
+In this project, I use R to analyze and clean data from an online sports store. The goal is to answer key business questions and extract insights on revenue, profit, customer ratings, and geographic trends.
+
+Additionally, I created an interactive Tableau dashboard to gain a deeper understanding of the data. You can explore it here:  
+https://public.tableau.com/app/profile/sebastian.ortuno.barrero/viz/SportsSalesCustomerAnalysis/RatingsDashboard?publish=y
+
 
 
 -----------------------------------------------------------------------------------------------------
+
+## **Data Cleaning and Business Requirements:**
+
+### 1) KPIs: total revenue, profit, number of orders, profit margin.
+### 2) KPIs by sport: revenue, profit, orders, profit margin.
+### 3) Customer ratings: number, the percentage of ratings the company got from all the orders, average rating.
+### 4) Ratings distribution: number of orders by rating, revenue by rating, profit by rating, and profit margin by rating.
+### 5) Revenue, profit, and profit margin by State.
+### 6) Monthly profit trends and comparison with previous month.
+### 7) Monthly revenue trends and comparison with previous month.
+### 8) Conclussion
+
+-----------------------------------------------------------------------------------------------------
+
 ### **Libraries:**
 Before we start with the business requirements, I load the libraries needed for this project.
 
@@ -31,8 +48,19 @@ library(tidyverse)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(knitr)
+library(scales)
+library(scales)
 ```
 ## **Load and view the dataset**
+After loading the data, we begin our analysis by using the `head()` and `glimpse()` functions to explore the structure and content of the dataset.
+
+There are two tables: **orders** and **customers**.
+
+- The **orders** table contains 8 columns and 2,847 rows. The columns are: `order_id`, `customer_id`, `sport`, `revenue`, `profit`, `shipping_cost`, `rating`, and `date`.
+
+- The **customers** table contains 4 columns and 2,847 rows. The columns are: `customer_id`, `full_name`, `email`, and `state`.
+
 
 ```{r}
 orders<-read.csv("C:/Users/sebas/OneDrive/Documents/NEC MASTERS/Projects Portfolio/Projects Portfolio/R Projects/Sports Analytics/Orders.csv")
@@ -41,171 +69,309 @@ customer<-read.csv("C:/Users/sebas/OneDrive/Documents/NEC MASTERS/Projects Portf
 
 head(orders)
 head(customer)
+glimpse(orders)
+glimpse(customer)
 
 ```
-## **-- Data Cleaning and Business Requirements:**
-
-### -- 1) Convert 'date' column (in text format) to a proper DATE type and store in 'Date_New'.
-### -- 2) KPIs: total revenue, profit, number of orders, profit margin.
-### -- 3) KPIs by sport: revenue, profit, orders, profit margin.
-### -- 4) Customer ratings: number, the percentage of ratings the company got from all the orders, average rating.
-### -- 5) Ratings distribution: number of orders by rating, revenue by rating, profit by rating, and profit margin by rating.
-### -- 6) Revenue, profit, and profit margin by State.
-### -- 7) Monthly profit trends and comparison with previous month.
-### -- 8) Monthly profit trends and comparison with previous month.
 
 
-### **1) Convert 'date' column (in text format) to a proper DATE type and store in 'Date_New'.**
+
+### **Convert 'date' column (in text format) to a proper DATE type and store in 'New_date'.**
 ```{r}
-orders<-orders%>%mutate(New_date=as_date(date, format="%m/%d/%Y"))
+# Convert the 'date' column to a Date type and create a new column 'New_date'
+orders<-orders%>%mutate(New_date=as_date(date, format="%m/%d/%Y")) 
+# Select and reorder columns, replacing 'date' with the new 'New_date' column
 orders<-orders%>%select("order_id","customer_id","sport","revenue","profit","shipping_cost",
                         "rating","New_date")
 ```
-### **2) KPIs: total revenue, profit, number of orders, profit margin.**
+### **1) KPIs: total revenue, profit, number of orders, profit margin.**
 ```{r}
-KPI<-orders%>%  # Start with the orders 
-  summarize(Total_Revenue=sum(revenue,na.rm=TRUE),#Summarize revenue  
-    Total_Profit=sum(profit),  # Summarize orders
-    N_orders=n_distinct(order_id),# Count orders using summarize
-    Profit_Margin=round((Total_Profit/Total_Revenue)*100,2)) #Profit Margin 
+KPI<-orders%>%  # Start with the orders table
+  summarize(                   # Use summarize to calculate key metrics
+    Total_Revenue=sum(revenue),#Calculate revenue  
+    Total_Profit=sum(profit),  # Calculate profit
+    N_orders=n_distinct(order_id),# calculate number of orders orders using summarize
+    Profit_Margin=round((Total_Profit/Total_Revenue)*100,2)) #Calculate the profit margin 
 
-KPI
+kable(KPI)
 ```
-- Total Revenue: $459,418.40
-
+- **Total Revenue:** $459,418.40  
 The store generated nearly half a million in total sales — strong revenue.
 
-- Total Profit: $284,821.90
-
+- **Total Profit:** $284,821.90  
 Profit makes up a significant portion of revenue, indicating healthy operations.
 
-- Number of Orders: 2,847
+- **Number of Orders:** 2,847  
+On average, each order generates about $161.35 in revenue  
+*(459,418.4 ÷ 2,847)*
 
-On average, each order generates about $161.35 in revenue
-(459,418.4 ÷ 2,847)
-
-- Profit Margin: 62%
-
+- **Profit Margin:** 62%  
 Very high margin — over half of every dollar earned is profit, which is excellent for retail.
 
-### **3) KPIs by sport: revenue, profit, orders, profit margin.**
+### **2) KPIs by sport: revenue, profit, orders, profit margin.**
 ```{r}
-KPI_sports<-orders%>%
-            group_by(sport)%>%
-            summarise(Total_Revenue=sum(revenue),
-                      Total_Profit=sum(profit),
-                      Total_Orders=n_distinct(order_id),
-                      Profit_Margin=round((Total_Profit/Total_Revenue)*100,2))%>%
-                      arrange(desc(Total_Profit), desc(Total_Orders))
+KPI_sports<-orders%>% # Start with the 'orders' dataset
+  group_by(sport)%>% # Group data by 'sport' category
+  summarise(Total_Revenue=sum(revenue), # Sum revenue for each sport
+    Total_Profit=sum(profit),           # Sum profit for each sport
+    Total_Orders=n_distinct(order_id),  # Count unique orders per sport
+    Profit_Margin=round((Total_Profit/Total_Revenue)*100,2))%>%  # Calculate profit margin (%)
+    arrange(desc(Total_Profit), desc(Total_Orders))  # Order results by highest profit, then orders
                       
-KPI_sports
+kable(KPI_sports) #Printing KPI_sports
 
-KPI_sports_long <- KPI_sports %>%
-  pivot_longer(cols = c(Total_Revenue, Total_Profit, Total_Orders, Profit_Margin),
-               names_to = "KPI",
-               values_to = "Value")
-ggplot(KPI_sports_long, aes(x = reorder(sport, -Value), y = Value, fill = sport)) +
+```
+
+**2.1 Profit by sports. **
+
+```{r}
+
+ggplot(KPI_sports, aes(x = reorder(sport, -Total_Profit), y = Total_Profit, fill = sport)) +
   geom_bar(stat = "identity") +
-  facet_wrap(~KPI, scales = "free_y") +  # Create one chart per KPI
+  geom_text(aes(label = dollar(Total_Profit)), vjust = -0.5, size = 2.7, ) +
+  labs(title = "Profit by Sport", x = "Sport", y = "Total Profit") +
+  theme_minimal()+
+  theme(plot.title = element_text(hjust=0.5))
+```
+
+**2.2 Revenue by Sport**
+```{r}
+ggplot(KPI_sports, aes(x=sport, y=Total_Revenue, fill=sport))+
+  geom_bar(stat="Identity")+
+  geom_text(aes(label = dollar(Total_Revenue)),vjust=-0.5, size= 2.8)+
+  labs(title = "Revenue by Sport", 
+       x= "Sport",
+       y="Revenue")+
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        legend.position = "none") +
-  labs(title = "KPIs by Sport", x = "Sport", y = "Value")
+  theme(plot.title = element_text(hjust=0.5))
+```
+
+**2.3 Number of orders by Sport.**
+```{r}
+
+ggplot(KPI_sports, aes(x=sport, y=Total_Orders, fill=sport))+
+  geom_bar(stat="identity")+
+  geom_text(aes(label=(Total_Orders)), vjust=-0.5, size=2.8)+
+  labs(
+    title= "Number of Orders by Sport",
+    x= "Sport",
+    y= "Number of orders")+
+  theme_minimal()+
+  theme(plot.title = element_text(hjust=0.5))
+
+```
+
+**2.4 Profit Margin by Sport**
+```{r}
+ggplot(KPI_sports, aes(x=sport, y=Profit_Margin, fill=sport))+
+  geom_bar(stat="identity")+
+  geom_text(aes(label=percent(Profit_Margin/100), vjust=-0.2))+
+  labs( title="Profit Margin by Sport",
+        x="sport",
+        y="Profit Margin")+
+  theme(plot.title = element_text(hjust= 0.5))
 
 ```
 
 
-- All sports have profit margins above 60%, which is a strong indicator of overall profitability.
+**2.5 Comments:**
 
-- Soccer has the highest margin, while Basketball has the highest order volume.
 
-- Football and Baseball show excellent balance between high revenue and strong margins.
+- All sports have profit margins above 60%, indicating strong overall profitability.
 
-- Hockey, although slightly behind in margin, still performs well and could improve further with cost optimization.
+- **Soccer** has the highest profit margin, while **Basketball** leads in order volume.
 
-### **4) Customer ratings: number, percentage of ratings from all orders, average rating.**
+- **Football** and **Baseball** show an excellent balance between high revenue and strong margins.
+
+- **Hockey**, although slightly lower in margin, still performs well and could benefit from cost optimization strategies.
+
+- The number of orders is relatively consistent across all sports categories.
+
+- **Recommendation:**  
+Consider reallocating marketing resources to **Hockey** and **Baseball** to boost volume, as they have strong performance potential. Additionally, analyze Basketball’s pricing and cost structure to increase margins without sacrificing volume.
+
+### **3) Customer ratings: number, percentage of ratings from all orders, average rating.**
 ```{r}
-# We need to work with NA values for rating column.
 
-Customer_Ratings<- orders%>% summarise(Average_Rating=round(mean(rating, na.rm=TRUE),2), 
-                                      Total_Rating=sum(!is.na(rating)),
-                                      Percentage_rating= round((Total_Rating/2847)*100,2))
+Customer_Ratings<-
+    orders%>% # Start with the 'orders' table
+    summarise(Average_Rating=round(mean(rating, na.rm=TRUE),2),  # Calculate the average rating (excluding NAs)
+    Total_Rating=sum(!is.na(rating)),# Count the number of non-missing ratings
+    Percentage_rating= round((Total_Rating/2847)*100,2))  # Calculate percentage of orders with ratings
 
 
 
-
-Customer_Ratings
+kable(Customer_Ratings)   # Display the summarized ratings info
 
 
 ```
-### **5) Ratings distribution: number of orders by rating, revenue by rating, profit by rating, and profit margin by rating.**
+
+
+
+- **Average Rating:** 3.13  
+The average customer rating across all orders is 3.13 out of 5, indicating a moderate level of customer satisfaction.
+
+- **Total Ratings Submitted:** 1,193  
+Out of 2,847 total orders, 1,193 included a customer rating.
+
+- **Percentage of Orders with Ratings:** 41.9%  
+Only 41.9% of customers submitted a rating, suggesting that the business may benefit from encouraging more feedback to better evaluate customer experience.
+
+- **Recommendation:**  
+Implement post-purchase incentives such as small discounts, loyalty points, or thank-you emails to encourage more customers to leave ratings. Increasing feedback volume will provide better insights for improving products and service.
+
+
+### **4) Ratings distribution: number of orders by rating, revenue by rating, profit by rating, and profit margin by rating.**
 
 ```{r}
-rating_distribution<-orders %>%
-                  group_by(rating) %>% summarise(orders_by_ratings=n(),
-                                                 revenue_by_rating=sum(revenue),
-                                                 profit_by_rating=sum(profit),
-                                profit_margin=round((profit_by_rating/revenue_by_rating)*100,2))%>%
-                                arrange(desc(rating))
-
-
-rating_distribution
+rating_distribution<-orders %>% # Use orders data
+  mutate(
+    rating = as.character(rating),  # First convert it to text.
+    rating = replace_na(rating, "No rating"), # replace NA to "No rating provided"
+    rating = factor(rating, levels = c("5", "4", "3", "2", "1", "No rating"))
+  ) %>%
+  group_by(rating) %>% summarise(orders_by_ratings=n(),    # Group by rating value
+    revenue_by_rating=sum(revenue),                        # Count orders per rating
+    profit_by_rating=sum(profit),                          # Sum revenue per rating
+  profit_margin=round((profit_by_rating/revenue_by_rating)*100,2))%>% # Profit margin % per rating
+  arrange(desc(rating))                                    # Sort by rating descending
+                                     
+kable(rating_distribution)                                        # Show results
 ```
 
-- Rating 3 shows the highest profit margin (62.62%) despite not having the most orders.  
-- Rating 5 leads in revenue and profit, but with a lower margin (59.06%).  
-- Lower ratings (1–2) have the lowest margins, indicating potential customer dissatisfaction.  
-- No direct correlation between higher rating and better profitability.
 
-### **6) Analyze revenue, profit, and profit margin by state.**
+**4.1 Orders by rating**
+
 ```{r}
-## Best profiability efficiency (Top 3)
+ggplot(rating_distribution, aes(x=rating, y=orders_by_ratings, fill=rating))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = orders_by_ratings, vjust=-0.2))+
+  theme_bw()+
+  labs(title = "Number of orders by Rating",
+       x="Ratings",
+       y="orders")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
-inner_join(orders, customer, by="customer_id") %>%
-              group_by(State) %>%
-              summarise(Revenue_by_state= sum(revenue),
-                        profit_by_state = sum(profit),
-                        profit_margin= round((profit_by_state/Revenue_by_state)*100,2)) %>%
-              mutate(rank_by_margin = as.integer(dense_rank(desc(profit_margin)))) %>% 
-              arrange(rank_by_margin) %>%
-              filter(rank_by_margin<=3)
 
-# Highest revenue and profit (top 3).
+**4.2 Profit by rating**
+```{r}
 
-inner_join(orders, customer, by= "customer_id") %>% 
-                            group_by(State) %>%
-                            summarise(profit_state= sum(profit),
-                                      revenue_state= sum(revenue),
-                                      profit_margin= round( (profit_state/revenue_state)*100,2))%>%
-                            arrange(desc(profit_state), desc(revenue_state)) %>%
-                            mutate(rank=row_number())%>%
-                            filter(rank<=3)
+ggplot(rating_distribution, aes(x=rating, y=profit_by_rating, fill=rating)) +
+  geom_bar (stat="identity")+
+  geom_text(aes(label = dollar(profit_by_rating)), vjust=-0.5, size=3) +
+  theme_bw()+
+  labs(title= "Profit by Rating",
+         x= "Rating",
+         y="Profit")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
-# 3 least profitable and least revenue.
-inner_join(orders, customer, by="customer_id")%>%
-          group_by(State) %>%
-          summarise(profit_state= sum(profit),
-                                      revenue_state= sum(revenue),
-                                      profit_margin= round( (profit_state/revenue_state)*100,2)) %>%
-          arrange(profit_state, revenue_state)%>%
-          mutate(rank= row_number()) %>%
-          filter(rank<=3)
-# 4 -- Smaller states like Delaware and New Hampshire show high margins despite lower total revenue.
 
-inner_join(orders, customer, by="customer_id")%>%
-          group_by(State) %>%
-          summarise(profit_state= sum(profit),
-                                      revenue_state= sum(revenue),
-                                      profit_margin= round( (profit_state/revenue_state)*100,2)) %>%
-          arrange( desc(profit_margin))
+**4.3 Revenue by rating**
+
+```{r}
+
+ggplot(rating_distribution, aes(x=rating, y=revenue_by_rating, fill=rating))+
+  geom_bar(stat="identity")+
+  geom_text(aes(label=dollar(revenue_by_rating)), vjust=-0.2,size=3.2)+
+  theme_bw()+
+  labs(
+    title="Revenue by Rating",
+    x="Rating",
+    y="Revenue"
+  )+
+  theme(plot.title =element_text(hjust = 0.5) )
+```
+
+**4.4 Comments:**
+
+- **High number of unrated orders:**  
+  The majority of orders (1,654) have no rating, indicating many customers do not provide feedback.
+
+- **Unrated orders generate the highest revenue and profit:**  
+  Despite lacking ratings, these orders account for the largest share of revenue ($290K+) and profit ($183K+).
+
+- **Highest profit margin is from unrated orders (63.30%):**  
+  This is followed by rating 3 orders at 62.62%, and rating 2 at 60.46%.
+
+- **Profit margins do not increase linearly with rating:**  
+  Rating 3 orders have higher profit margins than both ratings 4 and 5, which is unexpected.
+
+
+- **Recommendation:**  
+  Investigate product categories and pricing strategies by rating to better understand these patterns and improve customer feedback collection.
+
+### **5) Analyze revenue, profit, and profit margin by state.**
+
+**5.1 Best profiability efficiency (Top 3)**
+```{r}
+
+profiability_efficiency<-inner_join(orders, customer, by="customer_id") %>% # Join orders with customer data by customer_id
+  group_by(State) %>%                             # Group data by State
+  summarise(Revenue_by_state= sum(revenue),       # Sum revenue per state
+    profit_by_state = sum(profit),                # Sum profit per state
+    profit_margin= round((profit_by_state/Revenue_by_state)*100,2)) %>%  # Calculate profit margin % per state
+  mutate(rank_by_margin = as.integer(dense_rank(desc(profit_margin)))) %>%  # Rank states by descending profit margin
+  arrange(rank_by_margin) %>%  # Order by rank (top margins first)
+  filter(rank_by_margin<=3)     # Keep only top 3 states by profit margin
+
+kable(profiability_efficiency)
+```
+
+**5.2 Highest revenue and profit (top 3).**
+```{r}
+H_Revenue_Profit<-inner_join(orders, customer, by= "customer_id") %>%  # Join orders with customers by customer_id
+      group_by(State) %>%      # Group data by State
+      summarise(profit_state= sum(profit),  # Total profit per state
+        revenue_state= sum(revenue),# Total revenue per state
+        profit_margin= round( (profit_state/revenue_state)*100,2))%>% # Profit margin % per state
+      arrange(desc(profit_state), desc(revenue_state)) %>% # Sort by highest profit, then revenue
+      mutate(rank=row_number())%>% # Assign rank based on sorting
+      filter(rank<=3)     # Keep top 3 states by profit
+
+kable(H_Revenue_Profit)
+```
+
+**5.3 least profitable and least revenue**
+```{r}
+L_profitable_revenue<-inner_join(orders, customer, by="customer_id")%>% # Join orders and customers on customer_id
+group_by(State) %>%                  # Group data by State
+summarise(profit_state= sum(profit), # Sum of profit per state
+  revenue_state= sum(revenue),       # Sum of revenue per state
+  profit_margin= round( (profit_state/revenue_state)*100,2)) %>% # Profit margin % per state
+arrange(profit_state, revenue_state)%>% #Sort by profit and revenue
+mutate(rank= row_number()) %>%          # Assign rank based on sorted order
+filter(rank<=3)                         # Keep only top 3 (lowest profit) states
+
+kable(L_profitable_revenue)
+```
+**5.4 Smaller states like Delaware and New Hampshire show high margins despite lower total revenue.**
+```{r}
+small_States<-inner_join(orders, customer, by="customer_id")%>% # Join orders with customer data on customer_id
+group_by(State) %>%                               # Group data by State
+summarise(profit_state= sum(profit),              # Sum profit for each state
+  revenue_state= sum(revenue),                    # Sum revenue for each state
+  profit_margin= round( (profit_state/revenue_state)*100,2)) %>%   # Calculate profit margin (%) per state
+arrange( desc(profit_margin)) %>%                 # Sort states by profit margin, highest first
+mutate(Rank=rank(row_number()))%>%
+filter(Rank==4 | Rank == 5)
   
+kable(small_States)
 ```
+
+**5.5 Comments:**
+
 - Utah, Massachusetts, and New Mexico have the best profit efficiency.
 - California, Texas, and Florida rank highest in both Revenue and Profit, but not in margin.
 - Maine and Rhode Island are at the bottom in all three metrics: least profitable and least revenue.
 - Smaller states like Delaware and New Hampshire show high margins despite lower total revenue.
 
-### **7) Monthly profit trends and month-over-month comparisons.**
+- **Recommendation:**  
+Focus on improving operational efficiency in large-volume states like California, Texas, and Florida to enhance profit margins. Additionally, investigate strategies to boost sales in underperforming states like Maine and Rhode Island, potentially through targeted promotions or revised product offerings.
+
+### **6) Monthly profit trends and month-over-month comparisons.**
+
 I first create a new column called Month_trend by extracting the month number from the New_date column. Then, I replace those numeric month values with their full month names using recode(). This way, my Month_trend column is easier to understand because it shows names like "January" instead of just numbers.
 
 ```{r}
@@ -215,25 +381,44 @@ orders<-orders %>%
 
 
 Monthly_Trend<-orders  %>%
-          mutate(Month_trend=recode(Month_trend, "1"="January",
-                                                 "2"="February",
-                                                 "3"="March",
-                                                 "4"="April",
-                                                 "5"="May",
-                                                 "6"="June",
-                                                 "7"="July",
-                                                 "8"="August",
-                                                 "9"="September",
-                                                 "10"="October",
-                                                 "11"="November",
-                                                 "12"="December"),
-              Month_trend=factor(Month_trend,
-                                 levels = c("January", "February", "March", "April",                                                             "May", "June", "July", "August",                                                                      "September", "October", "November",                                                                  "December"))) %>%
-          group_by(Month_trend) %>% 
-          summarise(Monthly_Profit= sum(profit))
+  mutate(
+    ## Convert numeric month codes to month names
+    Month_trend=recode(Month_trend, "1"="January",
+      "2"="February",
+      "3"="March",
+      "4"="April",
+      "5"="May",
+      "6"="June",
+      "7"="July",
+      "8"="August",
+      "9"="September",
+      "10"="October",
+      "11"="November",
+      "12"="December"),
+      # Set factor levels to order months chronologically for plotting
+      Month_trend=factor(Month_trend,
+        levels = c("January", 
+                   "February", 
+                   "March", 
+                   "April",                                                            
+                   "May", 
+                   "June", 
+                   "July", 
+                   "August",                                                                      
+                   "September", 
+                   "October", 
+                   "November",                               
+                   "December"))) %>%
+          group_by(Month_trend) %>% # Group data by Month_trend
+          summarise(Monthly_Profit= sum(profit))# Calculate total profit per month  
 
-Monthly_Trend
+kable(Monthly_Trend) # View summarized monthly profit data
 
+```
+
+**Monthly Profit Trend Graphic**
+
+```{r}
 ggplot(Monthly_Trend, aes(x = Month_trend, y = Monthly_Profit)) +
   geom_bar(stat = "identity", fill = "lightblue") +
   geom_line(aes(group = 1), color = "yellow", size = 1.2) +
@@ -252,48 +437,69 @@ ggplot(Monthly_Trend, aes(x = Month_trend, y = Monthly_Profit)) +
 
 ```
 
-- June has the highest profit ($42,802.26), indicating a peak in sales or business activity mid-year.
 
-- April ($41,131.00) and May ($38,847.24) also show strong profits, suggesting a strong spring season.
+- June has the highest profit ($42,802), marking a mid-year sales peak.
 
-- January ($14,013.52) and February ($11,244.50) have relatively low profits, possibly due to post-holiday slowdowns or seasonal effects.
+- April ($41,131) and May ($38,847) also show strong spring profits.
 
-- November has the lowest profit ($9,760.52), which might be surprising since it’s close to the holiday season; this could suggest inventory issues, lower sales, or external factors affecting business.
+- January ($14,014) and February ($11,245) have low profits, likely due to post-holiday slowdowns.
 
-- Profit fluctuates noticeably month-to-month, with some sharp increases from March to April and decreases after July.
+- November has the lowest profit ($9,761), possibly indicating inventory or sales issues despite the holiday season.
 
-- Summer months (June and July) show solid performance, but July’s profit ($31,550.40) dips compared to June, maybe reflecting some mid-summer slowdowns.
+- Profit fluctuates month-to-month, with sharp increases from March to April and declines after July.
 
-- October and September are on the lower side ($13,895.44 and $17,992.00 respectively), which might indicate seasonal variation or operational challenges.
+- July ($31,550) dips compared to June, suggesting a mid-summer slowdown.
 
-- December ($16,567.86) rebounds from November’s low, possibly due to holiday shopping but doesn’t reach spring/summer highs.
+- September ($17,992) and October ($13,895) are relatively low, reflecting seasonal variation or challenges.
 
-- Overall, the data suggests strong seasonality, with peak sales in late spring and early summer, and dips in late fall and early year.
+- December ($16,568) rebounds after November but stays below spring/summer levels.
 
-### **8) Monthly Revenue trends and month-over-month comparisons.**
+- Overall, there is clear seasonality with peaks in late spring/early summer and dips in late fall/early year.
+
+
+### **7) Monthly Revenue trends and month-over-month comparisons.**
 ```{r}
 
-Revenue_Trend<-orders %>% mutate(Month_trend =recode( Month_trend,  "1"="January",
-                                                 "2"="February",
-                                                 "3"="March",
-                                                 "4"="April",
-                                                 "5"="May",
-                                                 "6"="June",
-                                                 "7"="July",
-                                                 "8"="August",
-                                                 "9"="September",
-                                                 "10"="October",
-                                                 "11"="November",
-                                                 "12"="December"),
-                Month_trend=factor(Month_trend, levels= c("January", "February", "March",
-                                                          "April", "May","June", "July",
-                                     "August","September","October","November","December"))) %>%
-                  group_by(Month_trend) %>% 
-                  summarise(Revenue= sum(revenue))
+Revenue_Trend<-orders %>% 
+  mutate(
+    ## Convert numeric month codes to month names
+    Month_trend =recode( Month_trend,  "1"="January",
+                                       "2"="February",
+                                       "3"="March",
+                                       "4"="April",
+                                       "5"="May",
+                                       "6"="June",
+                                       "7"="July",
+                                       "8"="August",
+                                       "9"="September",
+                                       "10"="October",
+                                       "11"="November",
+                                       "12"="December"),
+    # Set factor levels to order months chronologically for plotting
+                Month_trend=factor(Month_trend, levels= c("January", 
+                                                          "February", 
+                                                          "March",
+                                                          "April", 
+                                                          "May",
+                                                          "June", 
+                                                          "July",
+                                                          "August",
+                                                          "September",
+                                                          "October",
+                                                          "November",
+                                                          "December"))) %>%
+                  group_by(Month_trend) %>% # Group data by Month_trend
+                  summarise(Revenue= sum(revenue))# Calculate total revenue per month
 
 Revenue_Trend
 
+```
 
+
+**Monthly Revenue Trend Graphic**
+
+
+```{r}
 ggplot(Revenue_Trend, aes(x=Month_trend,y=Revenue))+
       geom_bar(stat = "identity", fill="lightblue") +
       geom_line(aes(group=1), color="yellow", size=1.2) +
@@ -303,30 +509,27 @@ ggplot(Revenue_Trend, aes(x=Month_trend,y=Revenue))+
        labs( title= "Monthly Revenue Trend",
         x= " Month",
         y="Revenue")
-  
-   
-
 
 ```
-- June had the highest revenue ($56,406.87), indicating peak business performance in early summer.
+- June had the highest revenue ($56,407), marking peak business in early summer.
 
-- April ($55,437.76) and May ($55,082.04) also showed strong revenue, suggesting a highly profitable spring season.
+- April ($55,438) and May ($55,082) showed strong spring revenue.
 
-- July ($50,390.34) and August ($45,468.72) maintained solid performance, continuing the strong trend into summer.
+- July ($50,390) and August ($45,469) maintained solid summer performance.
 
-- November recorded the lowest revenue ($17,088.32), which is unusually low considering seasonal events like Black Friday.
+- November recorded the lowest revenue ($17,088), unusually low despite events like Black Friday.
 
-- December revenue ($23,869.79) improved from November but remained below the yearly average.
+- December revenue ($23,870) improved from November but stayed below yearly average.
 
-- January to March showed modest revenues ($27K–$35K), reflecting a slow start to the year.
+- January to March had modest revenues ($27K–$35K), indicating a slow start.
 
-- A sharp increase from March to April suggests seasonal growth or successful marketing campaigns.
+- Sharp increase from March to April suggests seasonal growth or successful campaigns.
 
-- Revenue declined gradually from September ($33,366.54) to October ($27,995.24), showing post-summer slowdown.
+- Revenue declined gradually from September ($33,367) to October ($27,995), showing post-summer slowdown.
 
-- The data indicates a clear seasonal trend, with strong performance in late spring and early summer, followed by a steady decline into the last quarter of the year.
+- Overall, the data reveals clear seasonality with strong spring and early summer performance.
 
-### **Executive Summary**
+### **Conclussion**
 
 The business demonstrates strong profitability with an average profit margin of 62%, highlighting sports such as soccer and basketball for their volume and profit margins.
 
@@ -337,6 +540,4 @@ Geographically, states like Utah and Massachusetts stand out for margin efficien
 Seasonality is evident, with peaks in spring and summer (April to June) and notable declines in winter and fall, especially in November.
 
 It is recommended to focus marketing campaigns during peak months and investigate the causes of low profitability in underperforming states and months.
-
-
 
