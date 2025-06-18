@@ -44,7 +44,7 @@ The project analyzes two tables:
 
 ### 2. KPIs by sport: revenue, profit, orders, profit margin.
 
-![image](https://github.com/user-attachments/assets/f382f9a7-9dd8-47bb-94b9-ffca643bf861)
+---![image](https://github.com/user-attachments/assets/ff3312b0-6640-4171-93c2-49accccfe906)
 
 
 - All sports are profitable, with Soccer, Baseball and Football performing the best.
