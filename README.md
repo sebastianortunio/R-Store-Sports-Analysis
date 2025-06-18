@@ -119,7 +119,8 @@ Implement post-purchase incentives like small discounts, loyalty points, or than
 ## 4. Ratings distribution: number of orders by rating, revenue by rating, profit by rating, and profit margin by rating.
 ![image](https://github.com/user-attachments/assets/af2e03ad-3296-49e5-9297-dd97d106f714)
 
-![image](https://github.com/user-attachments/assets/58600465-d38a-418e-8a43-95c88dbcb5df)
+![image](https://github.com/user-attachments/assets/74140809-fbd0-4332-8a7e-ab27421a6101)
+
 
 
 
