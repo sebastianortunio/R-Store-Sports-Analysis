@@ -77,6 +77,9 @@ Summary of the store’s overall performance:
 ![image](https://github.com/user-attachments/assets/099dcfc4-d5af-451d-9d2e-7a25ab9666fe)
 
 
+![image](https://github.com/user-attachments/assets/66190e83-0328-4096-b891-069b88a7c569)
+
+
 
 
 - All sports have profit margins above 60%, indicating strong overall profitability.  
